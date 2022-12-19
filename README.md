@@ -67,22 +67,27 @@ twilio serverless:deploy
 
 ### Configure and Deploy the Plugin
 
-1. Set variables in /src/config.js
+1. Set configuration in Flex Environment (/flex-config)
 * rename **config.sample.js** to **config.js**
 ```
-const FOCUSTIMEATTRIBUTE = 'focus_time' 
-
-const RUNTIMEDOMAIN = "https://flex-insights-service-xxx-dev.twil.io" //configure domain for the serverless function
-
-const CHANNELS = ['chat'] //list all channels for additional metrics (first response time, average response time ...)
-
-const FEATURES = {
-    firstAgentResponse : 'first_response_time',
-    averageResponseTime: 'average_response_time',
-    agentMessages: 'conversation_measure_2',
-    customerMessages: 'conversation_measure_3',
-    averageAgentLength: 'conversation_measure_4',
-    averageCustomerLength: 'conversation_measure_6'
+{
+  "custom_data": {
+    "features": {
+      "focus_time_chat_metrics_v2": {
+        "enabled": true,
+        "additional_features_channels": ["chat"],
+        "focus_metric": "focus_time",
+        "additional_features": {
+          "firstAgentResponse" : "first_response_time",
+          "averageResponseTime": "average_response_time",
+          "agentMessages": "conversation_measure_6",
+          "customerMessages": "conversation_measure_7",
+          "averageAgentLength": "conversation_measure_8",
+          "averageCustomerLength": "conversation_measure_9"
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -91,14 +96,14 @@ const FEATURES = {
 * an example of disabling features:
 
 ```
-const FEATURES = {
-    firstAgentResponse : 'first_response_time',
-    averageResponseTime: 'average_response_time',
-    agentMessages: null,
-    customerMessages: 'conversation_measure_3',
-    averageAgentLength: null,
-    averageCustomerLength: null
-}
+        "additional_features": {
+          "firstAgentResponse" : "first_response_time",
+          "averageResponseTime": "average_response_time",
+          "agentMessages": "null",
+          "customerMessages": "conversation_measure_7",
+          "averageAgentLength": "null",
+          "averageCustomerLength": "null"
+        }
 ```
 2. Deploy and Release the Plugin
 
@@ -109,24 +114,26 @@ const FEATURES = {
 
 1. add a new configuration item together with the metric attribute to be useed in Flex Insights into **FEATURES** object
 ```
-const FEATURES = {
-    firstAgentResponse : 'first_response_time',
-    averageResponseTime: 'average_response_time',
-    agentMessages: null,
-    customerMessages: 'conversation_measure_3',
-    averageAgentLength: null,
-    averageCustomerLength: null,
-    productMentioned: 'conversation_measure_4'
+        "additional_features": {
+          "firstAgentResponse" : "first_response_time",
+          "averageResponseTime": "average_response_time",
+          "agentMessages": "conversation_measure_6",
+          "customerMessages": "conversation_measure_7",
+          "averageAgentLength": "conversation_measure_8",
+          "averageCustomerLength": "conversation_measure_9",
+          "productMentioned": 'conversation_measure_4'
 }
 ```
 
 2. add the code to the function (with condition that check the FEATURES key)
 ```
     // custom product mentioned 
-    if (configuredFeatures['productMentioned']) {
+    if (configuredFeatures['productMentioned'] !== null) {
     //code
-    const productMentioned = 10
-    response.body['productMentioned'] = productMentioned
+    const numberProductMentioned = 10 // mocked result
+    attributesUpdateJSON.conversations[
+              configuredFeatures["productMentioned"]
+            ] = numberProductMentioned;
     }
 ```
 

@@ -28,8 +28,7 @@ export const focusOnDisconnectedCall = async (
         const call_sid = payload.parameters.CallSid;
         let flag = false;
         const tasks = manager.store.getState().flex.worker.tasks;
-        console.log('call_sid :>> ', call_sid);
-        console.log('tasks :>> ', tasks);
+
     
         for (let [, task] of tasks) {
             if (task.conference && task.conference.participants) {
