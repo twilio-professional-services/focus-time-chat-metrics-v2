@@ -6,6 +6,8 @@
 
 Flex plugin to measure focus time and additional metrics for chat related channels. All metrics are sent via taskrouter to Flex Insights. This plugin is easy to expand to get even more metrics from chat channels.
 
+This plugin is compatible built for Flex V2 (UI 2x) and it was built in the structure of [PS Template](https://github.com/twilio-professional-services/flex-project-template)
+
 # Focus Time
 
 Focus Time is a metric that measures time spent on each reservation. In a multi-tasking scenario where an Agent is working 
