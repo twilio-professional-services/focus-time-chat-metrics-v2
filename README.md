@@ -70,7 +70,6 @@ twilio serverless:deploy
 ### Configure and Deploy the Plugin
 
 1. Set configuration in Flex Environment (/flex-config)
-* rename **config.sample.js** to **config.js**
 ```
 {
   "custom_data": {
