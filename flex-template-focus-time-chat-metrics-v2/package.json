@@ -1,6 +1,6 @@
 {
   "name": "flex-template-focus-time-chat-metrics-v2",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "test:watch": "jest --watch",

@@ -20,8 +20,11 @@ class UpdateTaskService extends ApiService {
       const manager = Flex.Manager.getInstance();
       const { custom_data } = manager.serviceConfiguration
         .ui_attributes as UIAttributes;
-      const { additional_features, focus_metric, additional_features_channels } =
-        custom_data.features.focus_time_chat_metrics_v2;
+      const {
+        additional_features,
+        focus_metric,
+        additional_features_channels,
+      } = custom_data.features.focus_time_chat_metrics_v2;
 
       const workerName = manager.store
         .getState()
@@ -32,7 +35,9 @@ class UpdateTaskService extends ApiService {
         window.focusTimeTracker.reservations[reservationSid];
       const focusTime = taskInWindowStore.focusTime || 0;
       const reservationAccepted = taskInWindowStore.reservationAcceptedTime;
-      const additionalChannelsString = JSON.stringify(additional_features_channels);
+      const additionalChannelsString = JSON.stringify(
+        additional_features_channels
+      );
 
       const {
         attributes: { conversationSid },
@@ -87,7 +92,7 @@ class UpdateTaskService extends ApiService {
     };
 
     return this.fetchJsonWithReject<UpdateTaskResponse>(
-      `https://${this.serverlessDomain}/features/focus-time-chat-metrics-v2/flex/update-task`,
+      `${this.serverlessProtocol}://${this.serverlessDomain}/features/focus-time-chat-metrics-v2/flex/update-task`,
       {
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
