@@ -1,13 +1,12 @@
-const {
-  prepareFlexFunction,
-  prepareStudioFunction,
-} = require(Runtime.getFunctions()["common/helpers/prepare-function"].path);
+const { prepareStudioFunction } = require(Runtime.getFunctions()[
+  "common/helpers/prepare-function"
+].path);
 const ChatOperations = require(Runtime.getFunctions()[
   "common/twilio-wrappers/programmable-chat"
 ].path);
 const TaskOperations = require(Runtime.getFunctions()[
-    "common/twilio-wrappers/taskrouter"
-  ].path);
+  "common/twilio-wrappers/taskrouter"
+].path);
 
 const requiredParameters = [
   { key: "taskSid", purpose: "task sid to remove the chat channel from" },
